@@ -1,33 +1,36 @@
 package kz.aitu.builder.app;
 
-import kz.aitu.builder.model.Dimensions;
+import kz.aitu.builder.director.RobotDirector;
 import kz.aitu.builder.model.RobotConfiguration;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Dimensions dimensions = new Dimensions(
-                120,
-                80,
-                150
-        );
+        RobotConfiguration basicRobot =
+                RobotDirector.createBasicRobot();
 
-        RobotConfiguration robot = new RobotConfiguration(
-                "Warehouse Bot",
-                "RX-100",
-                80,
-                4.5,
-                true,
-                true,
-                true,
-                false,
-                60,
-                true,
-                true,
-                dimensions
-        );
+        RobotConfiguration warehouseRobot =
+                RobotDirector.createWarehouseRobot();
 
-        System.out.println(robot);
+        RobotConfiguration autonomousRobot =
+                RobotDirector.createAutonomousRobot();
+
+        System.out.println("=== BASIC ROBOT ===");
+        System.out.println(basicRobot);
+
+        System.out.println();
+
+        System.out.println("=== WAREHOUSE ROBOT ===");
+        System.out.println(warehouseRobot);
+
+        System.out.println();
+
+        System.out.println("=== AUTONOMOUS ROBOT ===");
+        System.out.println(autonomousRobot);
+
+        System.out.println(
+                "AUTONOMOUS configuration built successfully 🍌"
+        );
     }
 }
