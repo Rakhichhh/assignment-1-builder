@@ -146,5 +146,35 @@ class RobotConfigurationBuilderTest {
 
         assertTrue(secondRobot.hasCamera());
         assertTrue(secondRobot.hasGps());
+
+    }@Test
+    void heavyLoadRobotMustNotExceedSpeedLimit() {
+        assertThrows(
+                IllegalStateException.class,
+                () -> new RobotConfigurationBuilder(
+                        "Heavy Bot",
+                        "HB-1",
+                        90,
+                        6.0
+                )
+                        .withLoadCapacity(80)
+                        .build()
+        );
+    }
+
+    @Test
+    void heavyLoadRobotAtSpeedLimitShouldBeValid() {
+        RobotConfiguration robot =
+                new RobotConfigurationBuilder(
+                        "Heavy Bot",
+                        "HB-2",
+                        90,
+                        5.0
+                )
+                        .withLoadCapacity(80)
+                        .build();
+
+        assertEquals(5.0, robot.getMaxSpeed());
+        assertEquals(80.0, robot.getLoadCapacity());
     }
 }
